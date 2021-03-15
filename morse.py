@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-word_separator = '/'
+word_separator = '/ '
 morse_code = {
     'A': '.-',
     'B': '_...',
@@ -40,7 +40,7 @@ def morse(file_handle):
         for sign in line:
             sign = sign.capitalize()
             if sign in morse_code:
-                coded += morse_code[sign]
+                coded += morse_code[sign] + ' '
             elif sign == ' ' and coded[-1] != word_separator:
                 coded += word_separator
         print(coded)
