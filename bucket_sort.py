@@ -11,7 +11,10 @@ def bucket_sort(table):
     index = 0
     for item in items_quantity:
         if item != 0:
-            result.append(chr(index))
+            char_quantity = 0
+            while char_quantity < item:
+                result.append(chr(index))
+                char_quantity += 1
         index += 1
 
     return result
