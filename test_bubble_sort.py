@@ -9,3 +9,8 @@ def test_bubble_sort_typical():
 def test_bubble_sort_oposite_order():
     my_list = [84, 79, 47, 34, 10, 5, 1]
     assert bubble_sort(my_list) == [1, 5, 10, 34, 47, 79, 84]
+
+
+def test_bubble_sort_typical_mixed_chars():
+    table = ['!', 'Q', 'A', 'Z', '2', 'w', 's', 'x']
+    assert bubble_sort(table) == sorted(table)
