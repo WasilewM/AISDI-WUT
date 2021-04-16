@@ -1,33 +1,21 @@
 from node import Node
 
 
-def test_init_node_no_values():
+def test_init_single_node():
     nd = Node(12)
-    assert nd.get_value() == 12
-    assert nd.get_parent() is None
-    assert nd.get_left() is None
-    assert nd.get_right() is None
+    assert nd.value == 12
+    assert nd.left is None
+    assert nd.right is None
 
 
-def test_init_node_regular_node_case():
-    nd = Node(12, 5, 1, 10)
-    assert nd.get_value() == 12
-    assert nd.get_parent() == 5
-    assert nd.get_left() == 1
-    assert nd.get_right() == 10
-
-
-def test_init_node_root_node_case():
-    nd = Node(12, left=1, right=10)
-    assert nd.get_value() == 12
-    assert nd.get_parent() is None
-    assert nd.get_left() == 1
-    assert nd.get_right() == 10
-
-
-def test_init_node_leaf_node_case():
-    nd = Node(12, parent=10)
-    assert nd.get_value() == 12
-    assert nd.get_parent() == 10
-    assert nd.get_left() is None
-    assert nd.get_right() is None
+def test_init_multiple_nodes():
+    nd = Node(2)
+    nd2 = Node(13)
+    root = Node(10)
+    root.left = nd
+    root.right = nd2
+    assert root.value == 10
+    assert root.left == nd
+    assert root.left.value == 2
+    assert root.right == nd2
+    assert root.right.value == 13
