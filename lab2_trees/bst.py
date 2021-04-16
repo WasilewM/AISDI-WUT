@@ -1,49 +1,34 @@
 from node import Node
 
-
-def get_sorted_list(root_ptr):
-    sorted_list = []
-
-    if root_ptr.left is None:
-        return root_ptr.value
-
-    if root_ptr.right is None:
-        return root_ptr.value
-
-    if root_ptr.left is not None:
-        left_subtree = []
-        left_subtree.append(get_sorted_list(root_ptr.left))
-
-        for item in left_subtree:
-            sorted_list.append(item)
-
-        sorted_list.append(root_ptr.value)
-
-    if root_ptr.right is not None:
-        sorted_list.append(get_sorted_list(root_ptr.right))
-
-    return sorted_list
+sorted_list = []
 
 
-def insert_new_value(root_ptr, new_value):
-    if root_ptr is None:
-        root_ptr = Node(new_value)
-        return root_ptr
+def get_sorted_list(node_ptr):
+    if node_ptr:
+        get_sorted_list(node_ptr.left)
+        sorted_list.append(node_ptr.value)
+        get_sorted_list(node_ptr.right)
 
-    if new_value < root_ptr.value:
-        root_ptr.left = insert_new_value(root_ptr.left, new_value)
+
+def insert_new_value(node_ptr, new_value):
+    if node_ptr is None:
+        node_ptr = Node(new_value)
+        return node_ptr
+
+    if new_value < node_ptr.value:
+        node_ptr.left = insert_new_value(node_ptr.left, new_value)
     else:
-        root_ptr.right = insert_new_value(root_ptr.right, new_value)
+        node_ptr.right = insert_new_value(node_ptr.right, new_value)
 
-    return root_ptr
+    return node_ptr
 
 
-tree = Node(10)
-tree = insert_new_value(tree, 5)
-tree = insert_new_value(tree, 20)
-tree = insert_new_value(tree, 200)
-tree = insert_new_value(tree, 1)
-tree = insert_new_value(tree, 3)
-tree = insert_new_value(tree, 7)
-tree = insert_new_value(tree, 12)
-print(get_sorted_list(tree))
+def tree_search(node_ptr, look_for_val):
+    if node_ptr is None:
+        return node_ptr
+    if look_for_val == node_ptr.value:
+        return node_ptr
+    if look_for_val < node_ptr.value:
+        return tree_search(node_ptr.left, look_for_val)
+    else:
+        return tree_search(node_ptr.right, look_for_val)
