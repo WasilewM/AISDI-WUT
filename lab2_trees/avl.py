@@ -1,49 +1,49 @@
 from node import NodeAVL
 
 class AVLTree:
-    def insert_new_value(self, node_ptr, new_value):
-        if node_ptr is None:
-            node_ptr = NodeAVL(new_value)
-            return node_ptr
+    def insert_new_value(self, root, new_value):
+        if root is None:
+            root = NodeAVL(new_value)
+            return root
 
-        if new_value < node_ptr.value:
-            node_ptr.left = self.insert_new_value(node_ptr.left, new_value)
+        if new_value < root.value:
+            root.left = self.insert_new_value(root.left, new_value)
         else:
-            node_ptr.right = self.insert_new_value(node_ptr.right, new_value)
+            root.right = self.insert_new_value(root.right, new_value)
 
-        node_ptr.height = self.update_height(node_ptr)
-        balance = self.get_balance(node_ptr)
+        root.height = self.update_height(root)
+        balance = self.get_balance(root)
 
         if balance == 2:
-            if new_value < node_ptr.left.value: # Left left
-                return self.rotate_right(node_ptr)
+            if new_value < root.left.value: # Left left
+                return self.rotate_right(root)
             else: # Left Right
-                node_ptr.left = self.rotate_left(node_ptr.left)
-                return self.rotate_right(node_ptr)
+                root.left = self.rotate_left(root.left)
+                return self.rotate_right(root)
 
         if balance == -2:
-            if new_value > node_ptr.left.value: # Right right
-                return self.rotate_left(node_ptr)
+            if new_value > root.right.value: # Right right
+                return self.rotate_left(root)
             else: # Right Right
-                node_ptr.right = self.rotate_right(node_ptr.right)
-                return self.rotate_left(node_ptr)
-        return node_ptr
+                root.right = self.rotate_right(root.right)
+                return self.rotate_left(root)
+        return root
 
-    def tree_search(self, node_ptr, look_for_val):
-        if node_ptr is None:
-            return node_ptr
-        if look_for_val == node_ptr.value:
-            return node_ptr
-        if look_for_val < node_ptr.value:
-            return tree_search(node_ptr.left, look_for_val)
+    def tree_search(self, root, look_for_val):
+        if root is None:
+            return root
+        if look_for_val == root.value:
+            return root
+        if look_for_val < root.value:
+            return tree_search(root.left, look_for_val)
         else:
-            return tree_search(node_ptr.right, look_for_val)
+            return tree_search(root.right, look_for_val)
 
-    def get_height(self, node_ptr):
-        return 0 if not node_ptr else node_ptr.height
+    def get_height(self, root):
+        return 0 if not root else root.height
 
-    def get_balance(self, node_ptr):
-        return 0 if not node_ptr else self.get_height(node_ptr.left) - self.get_height(node_ptr.right)
+    def get_balance(self, root):
+        return 0 if not root else self.get_height(root.left) - self.get_height(root.right)
 
     def rotate_left(self, root):
         pivot = root.right
@@ -65,5 +65,73 @@ class AVLTree:
         pivot.height = self.update_height(pivot)
         return pivot
 
-    def update_height(self, node_ptr):
-        return self.get_height(node_ptr.left) + 1 if node_ptr.left > node_ptr.right else node_ptr.right + 1
+    def update_height(self, root):
+        return 1 + max(self.get_height(root.left), self.get_height(root.right))
+
+    def delete_value(self, root, value_to_delete):
+        if root is None:
+            return root
+        elif value_to_delete < root.value:
+            root.left = self.delete_value(root.left, value_to_delete)
+        elif value_to_delete > root.value:
+            root.right = self.delete_value(root.right, value_to_delete)
+        else: # we found value to delete
+            if root.right is None:
+                temp = root.left
+                root = None
+                return temp
+            elif root.left is None:
+                temp = root.right
+                root = None
+                return temp
+            temp = self.get_smallest_node(root.right)
+            root.value = temp.value
+            root.right = self.delete_value(root.right, temp.value)
+
+        root.height = self.update_height(root)
+        balance = self.get_balance(root)
+
+        if balance == 2:
+            if self.get_balance(root.left) >= 0: # Left left
+                return self.rotate_right(root)
+            else: # Left Right
+                root.left = self.rotate_left(root.left)
+                return self.rotate_right(root)
+
+        if balance == -2:
+            if self.get_balance(root.right) >= 0: # Right right
+                return self.rotate_left(root)
+            else: # Right Right
+                root.right = self.rotate_right(root.right)
+                return self.rotate_left(root)
+        return root
+
+    def get_smallest_node(self, root):
+        if root is None:
+            return root
+        if root.left is None:
+            return root
+        return self.get_smallest_node(root.left)
+    
+    def print(self, root):
+        if root:
+            print(f"{root.value} ", end="")
+            self.print(root.left)
+            self.print(root.right)
+
+Tree = AVLTree()
+root = None
+ 
+root = Tree.insert_new_value(root, 1)
+root = Tree.insert_new_value(root, 2)
+root = Tree.insert_new_value(root, 3)
+root = Tree.insert_new_value(root, 4)
+root = Tree.insert_new_value(root, 5)
+root = Tree.insert_new_value(root, 6)
+
+myTree.print(root)
+print("")
+
+root = myTree.delete_value(root, 4)
+myTree.print(root)
+print("")
