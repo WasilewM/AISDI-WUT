@@ -1,8 +1,8 @@
 class Node:
-    def __init__(self, new_value, lft=None, rght=None):
+    def __init__(self, new_value):
         self.value = new_value
-        self.left = lft
-        self.right = rght
+        self.left = None
+        self.right = None
 
 
 class NodeAVL(Node):

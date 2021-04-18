@@ -1,4 +1,4 @@
-from new_bst import BST
+from bst import BST
 
 tree = BST()
 root = None
@@ -22,8 +22,14 @@ print('After creating a BST:')
 tree.prepare_printable_tree(root, 'root')
 tree.print_tree()
 
-print('\n', 'After deleting 50:')
+print('\n', 'After deleting 50 (root):')
 root = tree.delete_value(root, 50)
+tree.clear_printable_tree()
+tree.prepare_printable_tree(root, 'root')
+tree.print_tree()
+
+print('\n', 'After deleting 80:')
+root = tree.delete_value(root, 80)
 tree.clear_printable_tree()
 tree.prepare_printable_tree(root, 'root')
 tree.print_tree()

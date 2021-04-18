@@ -56,7 +56,7 @@ class BST:
             return root
         return self.get_smallest_node(root.left)
 
-    def prepare_printable_tree(self, node_ptr, desc, lvl=0):
+    def prepare_printable_tree(self, node_ptr, desc='root', lvl=0):
         if node_ptr is not None:
             if desc == 'root':
                 self.printable_tree[lvl] = []
@@ -83,7 +83,7 @@ class BST:
     def print_tree(self):
         for key in self.printable_tree:
             if self.printable_tree[key] != []:
-                print(self.printable_tree[key])
+                print(key, ':', self.printable_tree[key])
 
     def clear_printable_tree(self):
         it = 0

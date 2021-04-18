@@ -1,7 +1,11 @@
 from node import NodeAVL
+from bst import BST
 
 
-class AVLTree:
+class AVLTree (BST):
+    def __init__(self):
+        super().__init__()
+
     def insert_new_value(self, root, new_value):
         if root is None:
             root = NodeAVL(new_value)
@@ -30,15 +34,15 @@ class AVLTree:
                 return self.rotate_left(root)
         return root
 
-    def tree_search(self, root, look_for_val):
-        if root is None:
-            return root
-        if look_for_val == root.value:
-            return root
-        if look_for_val < root.value:
-            return self.tree_search(root.left, look_for_val)
-        else:
-            return self.tree_search(root.right, look_for_val)
+    # def tree_search(self, root, look_for_val):
+    #     if root is None:
+    #         return root
+    #     if look_for_val == root.value:
+    #         return root
+    #     if look_for_val < root.value:
+    #         return self.tree_search(root.left, look_for_val)
+    #     else:
+    #         return self.tree_search(root.right, look_for_val)
 
     def get_height(self, root):
         return 0 if not root else root.height
@@ -70,7 +74,7 @@ class AVLTree:
     def update_height(self, root):
         return 1 + max(self.get_height(root.left), self.get_height(root.right))
 
-    def delete_value(self, root, value_to_delete):
+    def delete_value_AVL(self, root, value_to_delete):
         if root is None:
             return root
         elif value_to_delete < root.value:
@@ -108,36 +112,15 @@ class AVLTree:
                 return self.rotate_left(root)
         return root
 
-    def get_smallest_node(self, root):
-        if root is None:
-            return root
-        if root.left is None:
-            return root
-        return self.get_smallest_node(root.left)
+    # def get_smallest_node(self, root):
+    #     if root is None:
+    #         return root
+    #     if root.left is None:
+    #         return root
+    #     return self.get_smallest_node(root.left)
 
     def print(self, root):
         if root:
             print(f"{root.value} ", end="")
             self.print(root.left)
             self.print(root.right)
-
-
-Tree = AVLTree()
-root = None
-
-root = Tree.insert_new_value(root, 4)
-root = Tree.insert_new_value(root, 2)
-root = Tree.insert_new_value(root, 6)
-
-root = Tree.insert_new_value(root, 1)
-root = Tree.insert_new_value(root, 3)
-
-root = Tree.insert_new_value(root, 5)
-
-
-Tree.print(root)
-print("")
-
-root = Tree.delete_value(root, 4)
-Tree.print(root)
-print("")
