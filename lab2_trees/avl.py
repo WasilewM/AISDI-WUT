@@ -1,5 +1,6 @@
 from node import NodeAVL
 
+
 class AVLTree:
     def insert_new_value(self, root, new_value):
         if root is None:
@@ -15,16 +16,16 @@ class AVLTree:
         balance = self.get_balance(root)
 
         if balance == 2:
-            if new_value < root.left.value: # Left left
+            if new_value < root.left.value:     # Left left
                 return self.rotate_right(root)
-            else: # Left Right
+            else:       # Left Right
                 root.left = self.rotate_left(root.left)
                 return self.rotate_right(root)
 
         if balance == -2:
-            if new_value > root.right.value: # Right right
+            if new_value > root.right.value:    # Right right
                 return self.rotate_left(root)
-            else: # Right Right
+            else:       # Right Right
                 root.right = self.rotate_right(root.right)
                 return self.rotate_left(root)
         return root
@@ -35,15 +36,16 @@ class AVLTree:
         if look_for_val == root.value:
             return root
         if look_for_val < root.value:
-            return tree_search(root.left, look_for_val)
+            return self.tree_search(root.left, look_for_val)
         else:
-            return tree_search(root.right, look_for_val)
+            return self.tree_search(root.right, look_for_val)
 
     def get_height(self, root):
         return 0 if not root else root.height
 
     def get_balance(self, root):
-        return 0 if not root else self.get_height(root.left) - self.get_height(root.right)
+        return 0 if not root else self.get_height(root.left)
+        - self.get_height(root.right)
 
     def rotate_left(self, root):
         pivot = root.right
@@ -75,7 +77,7 @@ class AVLTree:
             root.left = self.delete_value(root.left, value_to_delete)
         elif value_to_delete > root.value:
             root.right = self.delete_value(root.right, value_to_delete)
-        else: # we found value to delete
+        else:       # we found value to delete
             if root.right is None:
                 temp = root.left
                 root = None
@@ -92,16 +94,16 @@ class AVLTree:
         balance = self.get_balance(root)
 
         if balance == 2:
-            if self.get_balance(root.left) >= 0: # Left left
+            if self.get_balance(root.left) >= 0:    # Left left
                 return self.rotate_right(root)
-            else: # Left Right
+            else:       # Left Right
                 root.left = self.rotate_left(root.left)
                 return self.rotate_right(root)
 
         if balance == -2:
-            if self.get_balance(root.right) >= 0: # Right right
+            if self.get_balance(root.right) >= 0:   # Right right
                 return self.rotate_left(root)
-            else: # Right Right
+            else:       # Right Right
                 root.right = self.rotate_right(root.right)
                 return self.rotate_left(root)
         return root
@@ -112,16 +114,17 @@ class AVLTree:
         if root.left is None:
             return root
         return self.get_smallest_node(root.left)
-    
+
     def print(self, root):
         if root:
             print(f"{root.value} ", end="")
             self.print(root.left)
             self.print(root.right)
 
+
 Tree = AVLTree()
 root = None
- 
+
 root = Tree.insert_new_value(root, 1)
 root = Tree.insert_new_value(root, 2)
 root = Tree.insert_new_value(root, 3)
@@ -129,9 +132,9 @@ root = Tree.insert_new_value(root, 4)
 root = Tree.insert_new_value(root, 5)
 root = Tree.insert_new_value(root, 6)
 
-myTree.print(root)
+Tree.print(root)
 print("")
 
-root = myTree.delete_value(root, 4)
-myTree.print(root)
+root = Tree.delete_value(root, 4)
+Tree.print(root)
 print("")
