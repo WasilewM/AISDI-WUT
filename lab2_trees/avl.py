@@ -48,8 +48,8 @@ class AVLTree (BST):
         return 0 if not root else root.height
 
     def get_balance(self, root):
-        return 0 if not root else self.get_height(root.left)
-        - self.get_height(root.right)
+        return 0 if not root else (self.get_height(root.left)
+        - self.get_height(root.right))
 
     def rotate_left(self, root):
         pivot = root.right
@@ -93,6 +93,9 @@ class AVLTree (BST):
             temp = self.get_smallest_node(root.right)
             root.value = temp.value
             root.right = self.delete_value(root.right, temp.value)
+        
+        if root is None:
+            return root
 
         root.height = self.update_height(root)
         balance = self.get_balance(root)
