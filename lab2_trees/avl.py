@@ -125,12 +125,15 @@ class AVLTree:
 Tree = AVLTree()
 root = None
 
-root = Tree.insert_new_value(root, 1)
-root = Tree.insert_new_value(root, 2)
-root = Tree.insert_new_value(root, 3)
 root = Tree.insert_new_value(root, 4)
-root = Tree.insert_new_value(root, 5)
+root = Tree.insert_new_value(root, 2)
 root = Tree.insert_new_value(root, 6)
+
+root = Tree.insert_new_value(root, 1)
+root = Tree.insert_new_value(root, 3)
+
+root = Tree.insert_new_value(root, 5)
+
 
 Tree.print(root)
 print("")
