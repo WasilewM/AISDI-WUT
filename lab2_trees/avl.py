@@ -13,7 +13,7 @@ class AVLTree (BST):
 
         if new_value < root.value:
             root.left = self.insert_new_value(root.left, new_value)
-        else:
+        elif new_value > root.value:
             root.right = self.insert_new_value(root.right, new_value)
 
         root.height = self.update_height(root)
