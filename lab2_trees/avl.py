@@ -34,22 +34,13 @@ class AVLTree (BST):
                 return self.rotate_left(root)
         return root
 
-    # def tree_search(self, root, look_for_val):
-    #     if root is None:
-    #         return root
-    #     if look_for_val == root.value:
-    #         return root
-    #     if look_for_val < root.value:
-    #         return self.tree_search(root.left, look_for_val)
-    #     else:
-    #         return self.tree_search(root.right, look_for_val)
-
     def get_height(self, root):
         return 0 if not root else root.height
 
     def get_balance(self, root):
-        return 0 if not root else (self.get_height(root.left)
-        - self.get_height(root.right))
+        return 0 if not root else (
+            self.get_height(root.left) - self.get_height(root.right)
+        )
 
     def rotate_left(self, root):
         pivot = root.right
@@ -93,7 +84,7 @@ class AVLTree (BST):
             temp = self.get_smallest_node(root.right)
             root.value = temp.value
             root.right = self.delete_value(root.right, temp.value)
-        
+
         if root is None:
             return root
 
