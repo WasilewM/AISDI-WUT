@@ -24,18 +24,6 @@ def test_bst_3_nodes():
     assert tree.right.value == 20
 
 
-# def test_get_sorted_list():
-#     tree = Node(10)
-#     tree = insert_new_value(tree, 5)
-#     tree = insert_new_value(tree, 20)
-#     tree = insert_new_value(tree, 200)
-#     tree = insert_new_value(tree, 1)
-#     tree = insert_new_value(tree, 3)
-#     tree = insert_new_value(tree, 7)
-#     tree = insert_new_value(tree, 12)
-#     assert get_sorted_list(tree) == "1,3,5,7,10,12,20,200,"
-
-
 def test_tree_search_node_exists():
     tree = Node(10)
     tree = insert_new_value(tree, 5)
@@ -107,3 +95,60 @@ def test_tree_delete_node():
     tree = delete_node(tree, 3)
     nd = tree_search(tree, 3)
     assert nd is None
+
+
+def test_tree_delete_root():
+    tree = Node(50)
+    tree = insert_new_value(tree, 30)
+    tree = insert_new_value(tree, 70)
+    tree = insert_new_value(tree, 20)
+    tree = insert_new_value(tree, 40)
+    tree = insert_new_value(tree, 60)
+    tree = insert_new_value(tree, 80)
+    tree = insert_new_value(tree, 5)
+    tree = insert_new_value(tree, 35)
+    tree = insert_new_value(tree, 55)
+    tree = insert_new_value(tree, 75)
+    tree = insert_new_value(tree, 85)
+    tree = insert_new_value(tree, 65)
+    tree = insert_new_value(tree, 45)
+    tree = insert_new_value(tree, 25)
+
+    nd = tree_search(tree, 80)
+    assert nd.value == 80
+
+    tree = delete_node(tree, 50)
+    nd = tree_search(tree, 50)
+    assert nd is None
+    assert tree_search(tree, 45).left.value == 30
+    assert tree_search(tree, 45).right.value == 70
+
+
+def test_tree_delete_root_2_times():
+    tree = Node(50)
+    tree = insert_new_value(tree, 30)
+    tree = insert_new_value(tree, 70)
+    tree = insert_new_value(tree, 20)
+    tree = insert_new_value(tree, 40)
+    tree = insert_new_value(tree, 60)
+    tree = insert_new_value(tree, 80)
+    tree = insert_new_value(tree, 5)
+    tree = insert_new_value(tree, 35)
+    tree = insert_new_value(tree, 55)
+    tree = insert_new_value(tree, 75)
+    tree = insert_new_value(tree, 85)
+    tree = insert_new_value(tree, 65)
+    tree = insert_new_value(tree, 45)
+    tree = insert_new_value(tree, 25)
+
+    tree = delete_node(tree, 50)
+    nd = tree_search(tree, 50)
+    assert nd is None
+    assert tree_search(tree, 45).left.value == 30
+    assert tree_search(tree, 45).right.value == 70
+
+    tree = delete_node(tree, 45)
+    nd = tree_search(tree, 45)
+    assert nd is None
+    assert tree_search(tree, 40).left.value == 30
+    assert tree_search(tree, 40).right.value == 70

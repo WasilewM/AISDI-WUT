@@ -26,12 +26,17 @@ def find_max_value_node_in_subtree(node_ptr):
     Receives pointer to left subtree and finds the node with max
     value in this subtree.
     """
-    current = node_ptr
+    current_node = node_ptr
+    prev_node = None
 
-    while current is not None:
-        current = current.right
+    while current_node is not None:
+        if current_node.value is not None:
+            prev_node = current_node
+            current_node = current_node.right
+        else:
+            break
 
-    return current
+    return prev_node
 
 
 def tree_search(node_ptr, look_for_val):
@@ -67,50 +72,45 @@ def delete_node(node_ptr, to_be_deleted):
             return temp_ptr
 
         temp_ptr = find_max_value_node_in_subtree(node_ptr.left)
-        node_ptr.value = temp_ptr.value
-
-        node_ptr.left = delete_node(node_ptr.left, temp_ptr.value)
+        node_ptr = Node(temp_ptr.value, node_ptr.left, node_ptr.right)
+        temp_ptr.value = None
     return node_ptr
 
 
-printing_list = []
+printable_tree = dict()
 
 
-def print_tree(node_ptr):
+def prepare_printable_tree(node_ptr, desc, lvl):
     if node_ptr is not None:
-        printing_list.append(node_ptr.value)
-        if node_ptr.left is None:
-            left_value = None
-        else:
-            left_value = node_ptr.left.value
-        if node_ptr.right is None:
-            right_value = None
-        else:
-            right_value = node_ptr.right.value
+        if desc == 'root':
+            printable_tree[lvl] = []
+            printable_tree[lvl].append((node_ptr.value, desc))
 
-        printing_list.append(left_value)
-        printing_list.append(right_value)
+        lvl += 1
+        if lvl not in printable_tree.keys():
+            printable_tree[lvl] = []
 
-        print_tree(node_ptr.left)
-        print_tree(node_ptr.right)
+        if node_ptr.left is not None:
+            printable_tree[lvl].append(
+                (node_ptr.left.value, "came from:" + str(node_ptr.value))
+            )
+            prepare_printable_tree(node_ptr.left, node_ptr.value, lvl)
+
+        if node_ptr.right is not None:
+            printable_tree[lvl].append(
+                (node_ptr.right.value, "came from:" + str(node_ptr.value))
+            )
+            prepare_printable_tree(node_ptr.right, node_ptr.value, lvl)
 
 
-# tree = Node(50)
-# tree = insert_new_value(tree, 30)
-# tree = insert_new_value(tree, 70)
-# tree = insert_new_value(tree, 20)
-# tree = insert_new_value(tree, 40)
-# tree = insert_new_value(tree, 50)
-# tree = insert_new_value(tree, 80)
-# tree = insert_new_value(tree, 5)
-# tree = insert_new_value(tree, 35)
-# tree = insert_new_value(tree, 55)
-# tree = insert_new_value(tree, 75)
-# tree = insert_new_value(tree, 85)
-# tree = insert_new_value(tree, 65)
-# tree = insert_new_value(tree, 45)
-# tree = insert_new_value(tree, 25)
-# # print_sorted_list(tree)
-# # print(tree_search(tree, 70))
-# print_tree(tree)
-# print(printing_list)
+def print_tree():
+    for key in printable_tree:
+        if printable_tree[key] != []:
+            print(printable_tree[key])
+
+
+def clear_printable_tree():
+    it = 0
+    while it in printable_tree.keys():
+        printable_tree[it] = []
+        it += 1
