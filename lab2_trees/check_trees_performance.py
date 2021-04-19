@@ -3,10 +3,10 @@ from bst import BST
 from random import randint
 import time
 
-numbers_quantity = 1000
+numbers_quantity = 5000
 MININT = 1
 MAXINT = 3 * numbers_quantity + 1
-DELTA = 50
+DELTA = 100
 
 
 def get_random_numbers():
@@ -19,8 +19,7 @@ def get_random_numbers():
 
 
 def create_results_record(start_time, finish_time):
-    current_res = str(finish_time - start_time)
-    current_res = current_res[0] + ',' + current_res[2:] + ';'
+    current_res = str(finish_time - start_time) + ';'
     return current_res
 
 
