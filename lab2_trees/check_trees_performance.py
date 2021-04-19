@@ -3,10 +3,10 @@ from bst import BST
 from random import randint
 import time
 
-numbers_quantity = 5000
+numbers_quantity = 500000
 MININT = 1
 MAXINT = 3 * numbers_quantity + 1
-DELTA = 100
+DELTA = 10000
 
 
 def get_random_numbers():
