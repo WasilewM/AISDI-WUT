@@ -19,14 +19,14 @@ class AVLTree (BST):
         root.height = self.update_height(root)
         balance = self.get_balance(root)
 
-        if balance == 2:
+        if balance > 1:
             if new_value < root.left.value:     # Left left
                 return self.rotate_right(root)
             else:       # Left Right
                 root.left = self.rotate_left(root.left)
                 return self.rotate_right(root)
 
-        if balance == -2:
+        if balance < -1:
             if new_value > root.right.value:    # Right right
                 return self.rotate_left(root)
             else:       # Right Right
