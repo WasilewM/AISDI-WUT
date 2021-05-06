@@ -20,14 +20,13 @@ class Heap_Base:
             self.heap.append(-1)
 
     def set_next_value_index(self, new_next=1):
-        # if new_next >= len(self.heap):
-        self._next_idx = new_next
+        self._next_idx = int(new_next)
 
     def next_value_index(self):
         return self._next_idx
 
     def set_left_per_depth(self, quantity=1):
-        self._left_per_depth = quantity
+        self._left_per_depth = int(quantity)
 
     def decrement_left_per_depth(self):
         self.set_left_per_depth(
@@ -38,7 +37,7 @@ class Heap_Base:
         return self._left_per_depth
 
     def set_max_per_depth(self, quantity=1):
-        self._max_per_depth = quantity
+        self._max_per_depth = int(quantity)
 
     def max_per_depth(self):
         return self._max_per_depth

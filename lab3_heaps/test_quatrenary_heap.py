@@ -35,7 +35,7 @@ def test_qheap_delete_root():
     assert qheap.next_value_index() == 5
 
 
-def test_qheap_delete_root_more():
+def test_qheap_delete_root_multiple_times():
     qheap = Quaternary_Heap()
     qheap.add(1)
     qheap.add(10)
@@ -53,3 +53,5 @@ def test_qheap_delete_root_more():
     assert qheap.next_value_index() == 17
     qheap.delete_root()
     assert qheap.next_value_index() == 16
+    qheap.delete_root()
+    assert qheap.next_value_index() == 7

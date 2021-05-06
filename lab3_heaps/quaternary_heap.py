@@ -5,38 +5,19 @@ class Quaternary_Heap(Heap_Base):
     def __init__(self):
         super().__init__(4)
 
-    # def add(self, new_value):
-    #     if len(self.heap) <= self.next_value_index():
-    #         self.extend_heap_list(self.next_value_index())
-
-    #     self.heap[self.next_value_index()] = new_value
-    #     self.decrement_left_per_depth()
-
-    #     if self.next_value_index() == 1:
-    #         self.set_next_value_index(self.next_value_index() * 4)
-    #         self.set_left_per_depth(self.next_value_index())
-    #         self.set_max_per_depth(self.left_per_depth())
-    #     elif self.left_per_depth() == 0:
-    #         self.heapify()
-    #         self.set_next_value_index(
-    #             (self.next_value_index() + 1 - self.max_per_depth()) * 4
-    #         )
-    #         self.set_left_per_depth(self.next_value_index())
-    #         self.set_max_per_depth(self.left_per_depth())
-    #     else:
-    #         self.heapify()
-    #         self.set_next_value_index(self.next_value_index() + 1)
-
-    # def heapify(self):
-    #     idx = self.next_value_index()
-    #     while self.heap[idx] > self.heap[int(idx / 4)] and idx > 1:
-    #         temp = self.heap[idx]
-    #         self.heap[idx] = self.heap[int(idx / 4)]
-    #         self.heap[int(idx / 4)] = temp
-    #         idx = idx // 4
-
     def delete_root(self):
-        self.set_next_value_index(self.next_value_index() - 1)
+        self.set_left_per_depth(self.left_per_depth() + 1)
+        if self.left_per_depth() <= self.max_per_depth():
+            self.set_next_value_index(self.next_value_index() - 1)
+        else:
+            self.set_max_per_depth(
+                self.left_per_depth() / self.get_dimension()
+            )
+            self.set_left_per_depth(self.max_per_depth())
+            self.set_next_value_index(
+                self.next_value_index() / self.get_dimension()
+                + self.max_per_depth() - 1
+            )
         self.heap[1] = self.heap[self.next_value_index()]
         self.heap = self.heap[:self.next_value_index()]
 
