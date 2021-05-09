@@ -1,15 +1,14 @@
-from heap import Heap
+from check_performance import (
+    get_random_nums_list,
+    test_heap_performance,
+    # test_quaternary_heap_performance
+)
+from model_io import save_data
 
-h2 = Heap(2)
-h2.add(1)
-h2.add(2)
-h2.add(3)
-h2.add(4)
-h2.add(5)
-h2.add(6)
-h2.add(7)
-h2.add(8)
-h2.add(9)
-h2.add(10)
+test_nums = get_random_nums_list()
+b_heap = test_heap_performance(test_nums, 2)
+t_heap = test_heap_performance(test_nums, 3)
+q_heap = test_heap_performance(test_nums, 4)
+# q_heap_v1 = test_quaternary_heap_performance(test_nums)
 
-h2.print()
+save_data(b_heap, t_heap, q_heap)

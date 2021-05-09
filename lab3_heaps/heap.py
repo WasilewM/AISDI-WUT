@@ -5,7 +5,7 @@ class Heap:
 
     def get_dimension(self):
         return self._dimension
-    
+
     def get_heap(self):
         return self._heap
 
@@ -17,8 +17,9 @@ class Heap:
                 nv_index = self._heap.index(new_value)
                 self._heap[p_index], self._heap[nv_index] = self._heap[nv_index], self._heap[p_index]
                 p_index = self._find_parent_index(p_index)
-                if p_index is None: break
-    
+                if p_index is None:
+                    break
+
     def pop(self):
         self._heap[0], self._heap[len(self._heap)-1] = self._heap[len(self._heap)-1], self._heap[0]
         self._heap.pop()
@@ -26,7 +27,7 @@ class Heap:
 
     def _find_parent_index(self, index):
         return (index - 1) // self._dimension if index > 0 else None
-    
+
     def _find_children_ids(self, p_index):
         first_child_id = self._dimension * p_index + 1
         children_ids = (
@@ -50,7 +51,10 @@ class Heap:
         print('0: ', end='')
         height = 1
         for i in range(len(self._heap)):
-            print(f'{self._heap[i]}, ', end='')
+            if self._find_parent_index(i) is not None:
+                print(f'({self._heap[i]}, came from: {self._heap[self._find_parent_index(i)]}), ', end='')
+            else:
+                print(f'({self._heap[i]}, root), ', end='')
             if (i - (2 ** height - 2)) % (self._dimension ** height) == 0:
                 print('')
                 print(f'{height}: ', end='')
