@@ -45,3 +45,14 @@ class Heap:
         if largest != index:
             self._heap[largest], self._heap[index] = self._heap[index], self._heap[largest]
             self._heapify(largest)
+
+    def print(self):
+        print('0: ', end='')
+        height = 1
+        for i in range(len(self._heap)):
+            print(f'{self._heap[i]}, ', end='')
+            if (i - (2 ** height - 2)) % (self._dimension ** height) == 0:
+                print('')
+                print(f'{height}: ', end='')
+                height += 1
+        print('')
