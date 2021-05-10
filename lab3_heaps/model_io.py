@@ -12,7 +12,7 @@ def write_data(file_handle, data):
 
 def save_data(bheap_results, theap_result, qheap_results):
     try:
-        with open("create_heap_time_results.csv", 'w') as file_handle:
+        with open("create_heap_time_results_long.csv", 'w') as file_handle:
             results = []
             results.append(bheap_results[0])
             results.append(theap_result[0])
@@ -22,7 +22,7 @@ def save_data(bheap_results, theap_result, qheap_results):
         print('Path is a directory.')
 
     try:
-        with open("pop_root_time_results.csv", 'w') as file_handle:
+        with open("pop_root_time_results_long.csv", 'w') as file_handle:
             results = []
             results.append(bheap_results[1])
             results.append(theap_result[1])

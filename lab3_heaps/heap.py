@@ -50,13 +50,17 @@ class Heap:
     def print(self):
         print('0: ', end='')
         height = 1
+        items_per_lvl = self._dimension ** (height - 1)
         for i in range(len(self._heap)):
             if self._find_parent_index(i) is not None:
                 print(f'({self._heap[i]}, came from: {self._heap[self._find_parent_index(i)]}), ', end='')
+                items_per_lvl -= 1
             else:
                 print(f'({self._heap[i]}, root), ', end='')
-            if (i - (2 ** height - 2)) % (self._dimension ** height) == 0:
+                items_per_lvl -= 1
+            if items_per_lvl == 0:
                 print('')
                 print(f'{height}: ', end='')
                 height += 1
+                items_per_lvl = self._dimension ** (height - 1)
         print('')
