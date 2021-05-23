@@ -81,10 +81,16 @@ def find_kmp(pattern, text):
     :param text: text to be checked for pattern occurring
     :type text: str
     """
-    PI_table = KMPNext(pattern)
     curr_pref_len = 0
     idx = 0
     result = []
+
+    if not len(pattern) or not len(text):
+        return []
+    if len(pattern) > len(text):
+        return []
+
+    PI_table = KMPNext(pattern)
 
     while idx < len(text):
         while (

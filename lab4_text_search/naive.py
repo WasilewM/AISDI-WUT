@@ -14,6 +14,11 @@ def find_naive(pattern, text):
     first_char_idx = 0
     result = []
 
+    if not len(pattern) or not len(text):
+        return []
+    if len(pattern) > len(text):
+        return []
+
     while first_char_idx + len(pattern) < len(text):
         curr_text_fragment = text[first_char_idx:len(pattern) + first_char_idx]
 
