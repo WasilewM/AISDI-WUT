@@ -1,10 +1,8 @@
-# prime_num = 103
-# last_char_num = 380
-# alphabet_offset = 32
 
-prime_num = 23
-last_char_num = ord("B")
-alphabet_offset = ord("A")
+
+prime_num = 1610612741
+last_char_num = ord("ż")
+alphabet_offset = ord(" ")
 
 alphabet_len = last_char_num - alphabet_offset + 1
 
