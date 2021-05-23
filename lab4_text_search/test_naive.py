@@ -24,3 +24,9 @@ def test_naive_numerous_nums_in_text():
     find_this = "5"
     text_to_be_searched = "3.14159265359"
     assert find_naive(find_this, text_to_be_searched) == [5, 9, 11]
+
+
+def test_naive_no_pattern_occurring_in_text():
+    find_this = "5"
+    text_to_be_searched = "BALIN"
+    assert find_naive(find_this, text_to_be_searched) == []
