@@ -52,7 +52,7 @@ def find_rk(pattern, text):
         if first_char_idx <= text_len - patt_len:
             new_hash = (text_hash - ((alphabet_len ** (patt_len - 1)) % prime_num) * (ord(text[first_char_idx - 1]) - alphabet_offset)) % prime_num
             new_hash = (new_hash * alphabet_len) % prime_num
-            new_hash = (new_hash + ord(text[first_char_idx + patt_len - 1]) - alphabet_offset) % 23
+            new_hash = (new_hash + ord(text[first_char_idx + patt_len - 1]) - alphabet_offset) % prime_num
             text_hash = new_hash
 
     return result
