@@ -3,13 +3,16 @@ import argparse
 import sys
 
 
-def find_zero(data):
+def find_zeros(data):
+    zeros = []
     for line in data:
         for char in line:
             if char == '0':
                 x = line.index(char)
                 y = data.index(line)
-                return (x, y)
+                zeros.append((x, y))
+            if len(zeros) == 2:
+                return zeros
 
 
 def main(arguments):
@@ -19,7 +22,7 @@ def main(arguments):
 
     data = read_data(args.FILENAME)
     print(data)
-    print(find_zero(data))
+    print(find_zeros(data))
 
 
 if __name__ == "__main__":
