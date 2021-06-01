@@ -5,7 +5,7 @@ def read_data(path):
         with open(path, 'r') as file_handle:
             data = []
             for line in file_handle:
-                data_line = [char for char in line[:-1]]
+                data_line = [int(char) for char in line[:-1]]
                 data.append(data_line)
             return data
     except IsADirectoryError:
