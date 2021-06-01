@@ -1,5 +1,6 @@
 path = "graph1.txt"
 
+
 def read_data(path):
     try:
         with open(path, 'r') as file_handle:

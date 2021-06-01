@@ -1,7 +1,7 @@
 from dijkstra import dijkstra, BIG_NUM
 from model_io import read_data
-import argparse
-import sys
+# import argparse
+# import sys
 
 
 def reorganise_data(data):
@@ -28,6 +28,7 @@ def reorganise_data(data):
 
     new_data.append(boarder)
     return new_data
+
 
 def find_zeros(data):
     zeros = []
@@ -68,12 +69,7 @@ def main(arguments):
     zeros = find_zeros(data)
     distance_table = init_distance_table(data)
     dijkstra(data, distance_table, zeros[0], zeros[1])
-
     print_table(distance_table)
-    print('\n')
-    print_table(data)
-    # print(zeros)
-    # print(distance_table)
 
 
 # if __name__ == "__main__":
