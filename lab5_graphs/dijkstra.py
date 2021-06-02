@@ -7,9 +7,6 @@ def dijkstra(data, dist, start, end):
     y0, x0 = start
     dist[y0][x0] = 0
     visited_nodes = set()
-    # mark end node
-    y_end, x_end = end
-    visited_nodes.add((y_end, x_end))
 
     # initializing queue for Dijktra algorothm
     dijktra_queue = queue.PriorityQueue()
