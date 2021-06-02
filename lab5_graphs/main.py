@@ -68,7 +68,7 @@ def main(arguments):
     data = reorganise_data(data)
     zeros = find_zeros(data)
     distance_table = init_distance_table(data)
-    dijkstra(data, distance_table, zeros[0], zeros[1])
+    distance_table = dijkstra(data, distance_table, zeros[0])
     print_table(distance_table)
 
 
