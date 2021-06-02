@@ -4,12 +4,12 @@ BIG_NUM = 100
 
 def dijkstra(data, dist, start, end):
     # setup
-    x0, y0 = start
+    y0, x0 = start
     dist[y0][x0] = 0
     visited_nodes = set()
     # mark end node
-    x_end, y_end = end
-    visited_nodes.add((x_end, y_end))
+    y_end, x_end = end
+    visited_nodes.add((y_end, x_end))
 
     # initializing queue for Dijktra algorothm
     dijktra_queue = queue.PriorityQueue()

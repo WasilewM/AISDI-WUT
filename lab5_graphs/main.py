@@ -37,7 +37,7 @@ def find_zeros(data):
             if value == 0:
                 x = line.index(value)
                 y = data.index(line)
-                zeros.append((x, y))
+                zeros.append((y, x))
             if len(zeros) == 2:
                 return zeros
 
