@@ -3,6 +3,10 @@ BIG_NUM = 100
 
 
 def add_neighbours_to_queue(y, x, data, dijkstra_queue):
+    """
+    Suplementary function for dijkstra().
+    Updates the dijkstra_queue used in Dijkstra algorithm.
+    """
     if data[y-1][x] != BIG_NUM:
         dijkstra_queue.put((data[y-1][x], y - 1, x))
 
@@ -19,6 +23,10 @@ def add_neighbours_to_queue(y, x, data, dijkstra_queue):
 
 
 def dijkstra(data, dist, start):
+    """
+    Dijkstra algorithm. Calculates the shortests distances
+    between given start node and the rest od the nodes
+    """
     # setup
     y0, x0 = start
     dist[y0][x0] = 0
@@ -38,35 +46,60 @@ def dijkstra(data, dist, start):
             dijkstra_queue = add_neighbours_to_queue(
                 y, x, data, dijkstra_queue
             )
+
             #  updating distance values
             if data[y-1][x] + dist[y][x] < dist[y-1][x]:
                 dist[y-1][x] = data[y-1][x] + dist[y][x]
+                # if modified node has already been visited,
+                # it should be removed from the visited_nodes set
+                # in order to assure that the update of its neghbours
+                # can be done
                 if (y - 1, x) in visited_nodes:
                     visited_nodes.remove((y - 1, x))
+                # call for add_neighbours_to_queue to update the
+                # dijkstra_queue
                 dijkstra_queue = add_neighbours_to_queue(
                     y - 1, x, data, dijkstra_queue
                 )
 
             if data[y][x-1] + dist[y][x] < dist[y][x-1]:
                 dist[y][x-1] = data[y][x-1] + dist[y][x]
+                # if modified node has already been visited,
+                # it should be removed from the visited_nodes set
+                # in order to assure that the update of its neghbours
+                # can be done
                 if (y, x - 1) in visited_nodes:
                     visited_nodes.remove((y, x - 1))
+                # call for add_neighbours_to_queue to update the
+                # dijkstra_queue
                 dijkstra_queue = add_neighbours_to_queue(
                     y, x - 1, data, dijkstra_queue
                 )
 
             if data[y+1][x] + dist[y][x] < dist[y+1][x]:
                 dist[y+1][x] = data[y+1][x] + dist[y][x]
+                # if modified node has already been visited,
+                # it should be removed from the visited_nodes set
+                # in order to assure that the update of its neghbours
+                # can be done
                 if (y + 1, x) in visited_nodes:
                     visited_nodes.remove((y + 1, x))
+                # call for add_neighbours_to_queue to update the
+                # dijkstra_queue
                 dijkstra_queue = add_neighbours_to_queue(
                     y + 1, x, data, dijkstra_queue
                 )
 
             if data[y][x+1] + dist[y][x] < dist[y][x+1]:
                 dist[y][x+1] = data[y][x+1] + dist[y][x]
+                # if modified node has already been visited,
+                # it should be removed from the visited_nodes set
+                # in order to assure that the update of its neghbours
+                # can be done
                 if (y, x + 1) in visited_nodes:
                     visited_nodes.remove((y, x + 1))
+                # call for add_neighbours_to_queue to update the
+                # dijkstra_queue
                 dijkstra_queue = add_neighbours_to_queue(
                     y, x + 1, data, dijkstra_queue
                 )
