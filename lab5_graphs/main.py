@@ -2,9 +2,8 @@ from dijkstra import dijkstra, BIG_NUM
 from model_io import read_data
 import argparse
 import sys
-
-
 shortest_path = []
+
 
 def reorganise_data(data):
     """
@@ -97,6 +96,7 @@ def print_table(table):
 def get_shortest_path(distance_table, start, end):
     if end != start:
         y, x = end
+        shortest_path.append(end)
 
         smallest = min(
             distance_table[y][x+1],
@@ -122,6 +122,44 @@ def get_shortest_path(distance_table, start, end):
     return shortest_path
 
 
+def create_path_image(path, path_image, data):
+    """
+    Transforst list path_image to represent the path in the form
+    of "image".
+    """
+    # marking nodes that creathe the shortest path
+    for y, x in path:
+        path_image[y][x] = data[y][x]
+
+    # mark nodes that do not belong to the shortest path as ' '
+    #
+    y = 1
+    x = 1
+    while y < len(path_image) - 1:
+        while x < len(path_image[y]) - 1:
+            if path_image[y][x] == BIG_NUM:
+                path_image[y][x] = ' '
+            x += 1
+
+        y += 1
+        x = 1
+
+    # creating the image - the result
+    image = ""
+    for row in path_image:
+        nodes_amount = 0
+        for node in row:
+            # appending nodes to image
+            if node != BIG_NUM:
+                image = image + str(node)
+                nodes_amount += 1
+        # appending new line
+        if nodes_amount != 0:
+            image += '\n'
+
+    return image
+
+
 def main(arguments):
     """
     Main function.
@@ -129,11 +167,11 @@ def main(arguments):
     the Dijkstra algorithm.
     """
     # parse the arguments
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument('FILENAME')
-    # args = parser.parse_args(arguments[1:])
+    parser = argparse.ArgumentParser()
+    parser.add_argument('FILENAME')
+    args = parser.parse_args(arguments[1:])
     # read data
-    data = read_data("graph1.txt")
+    data = read_data(args.FILENAME)
 
     # preprocess the data for the Dijkstra algorithm
     data = reorganise_data(data)
@@ -147,12 +185,19 @@ def main(arguments):
         distance_table = init_distance_table(data)
         # call dijkstra algorithm
         distance_table = dijkstra(data, distance_table, zeros[0])
-        # print results
-        print_table(distance_table)
+        # print results just to check them
+        # print_table(distance_table)
 
         shortest_path = get_shortest_path(distance_table, zeros[0], zeros[1])
-        print(shortest_path)
+        # printing results just to check them
+        # print(shortest_path)
 
-main(1)
-# if __name__ == "__main__":
-#     main(sys.argv)
+        # using init_distance_table to get correct size for path image list
+        # containing lists
+        path_image = init_distance_table(data)
+        path_image = create_path_image(shortest_path, path_image, data)
+        print(path_image)
+
+
+if __name__ == "__main__":
+    main(sys.argv)
