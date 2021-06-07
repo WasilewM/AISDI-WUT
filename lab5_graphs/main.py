@@ -4,6 +4,8 @@ import argparse
 import sys
 
 
+shortest_path = []
+
 def reorganise_data(data):
     """
     Preprocesses data for the use of Dijkstra algorithm.
@@ -53,14 +55,14 @@ def find_zeros(data):
     """
     # init table
     zeros = []
+    cols_num = len(data)
+    rows_num = len(data[0])
     # look for zeros
-    for line in data:
-        for value in line:
+    for y in range(cols_num - 1):
+        for x in range(rows_num - 1):
             # if zero found, append its
             # coordinates to the zeros table
-            if value == 0:
-                x = line.index(value)
-                y = data.index(line)
+            if data[y][x] == 0:
                 zeros.append((y, x))
     # return the result
     return zeros
@@ -92,6 +94,34 @@ def print_table(table):
         print(data_row)
 
 
+def get_shortest_path(distance_table, start, end):
+    if end != start:
+        y, x = end
+
+        smallest = min(
+            distance_table[y][x+1],
+            distance_table[y+1][x],
+            distance_table[y-1][x],
+            distance_table[y][x-1]
+        )
+        if smallest == distance_table[y][x+1]:
+            end = y, x + 1
+            shortest_path.append(end)
+        elif smallest == distance_table[y+1][x]:
+            end = y + 1, x
+            shortest_path.append(end)
+        elif smallest == distance_table[y-1][x]:
+            end = y - 1, x
+            shortest_path.append(end)
+        elif smallest == distance_table[y][x-1]:
+            end = y, x - 1
+            shortest_path.append(end)
+
+        get_shortest_path(distance_table, start, end)
+
+    return shortest_path
+
+
 def main(arguments):
     """
     Main function.
@@ -99,11 +129,11 @@ def main(arguments):
     the Dijkstra algorithm.
     """
     # parse the arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument('FILENAME')
-    args = parser.parse_args(arguments[1:])
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('FILENAME')
+    # args = parser.parse_args(arguments[1:])
     # read data
-    data = read_data(args.FILENAME)
+    data = read_data("graph1.txt")
 
     # preprocess the data for the Dijkstra algorithm
     data = reorganise_data(data)
@@ -120,6 +150,9 @@ def main(arguments):
         # print results
         print_table(distance_table)
 
+        shortest_path = get_shortest_path(distance_table, zeros[0], zeros[1])
+        print(shortest_path)
 
-if __name__ == "__main__":
-    main(sys.argv)
+main(1)
+# if __name__ == "__main__":
+#     main(sys.argv)
